@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>GenreList</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<h1>Edit Genrelist</h1>
+	<div>
+		<table class="table">
+			<tr th:each="genre: ${genres}">
+				<td>
+					<form th:action="@{/save-genres}" method="post">
+						<input type="hidden" name="genre.id" th:value="${genre.id}">
+						<input name="name" th:value="${genre.name}" aria-label="Genre">
+						<button>Save changes</button>
+					</form>
+				</td>
+				<td>
+					<form th:action="@{/delete-genres}" method="post">
+						<input type="hidden" name="genreId" th:value="${genre.id}">
+						<button>Delete genre</button>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form th:object="${newGenre}" th:action="@{/save-genres}" action="#"
+						method="post" aria-label="New genre">
+						<input type="hidden" name="genre.id" th:value="${genre.id}">
+						<input name="name" th:value="*{name}" aria-label="Genre" autofocus>
+						<button>Add genre</button>
+						
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+</body>
+</html>

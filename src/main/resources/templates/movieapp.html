@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta name="viewport" content="initial-scale=1">
+	<title>MovieApp</title>
+</head>
+<body>
+	<h1>Movies</h1>
+
+	<table>
+	<tr th:each="movie : ${movies}">
+	<td th:id="${movie.id}"></td>
+				<td th:text="${movie.title}"></td>
+				<td th:text="${movie.director}"></td>
+				<td th:text="${movie.year}"></td>
+				<td th:text="${movie.genre} ? ${movie.genre.name} : '  '"></td>
+				<td><a th:href="@{/movie-app/{id}(id=${movie.id})}" >View</a></td>
+			</tr>
+			
+		</th:block>	
+	</table>
+	<div>
+		<p>
+			<a href="/edit-page">EditPage (admin)</a>
+		</p>
+	</div>
+	<div>
+		<p>
+			<a href="/edit-genre">Edit genres</a>
+		</p>
+	</div>
+</body>
+</html>

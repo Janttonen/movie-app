@@ -1,33 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-	<meta name="viewport" content="initial-scale=1">
-	<title>MovieApp</title>
+<meta name="viewport" content="initial-scale=1">
+<title>Movie App</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
 	<h1>Movies</h1>
 
 	<table>
-	<tr th:each="movie : ${movies}">
-	<td th:id="${movie.id}"></td>
-				<td th:text="${movie.title}"></td>
-				<td th:text="${movie.director}"></td>
-				<td th:text="${movie.year}"></td>
-				<td th:text="${movie.genre} ? ${movie.genre.name} : '  '"></td>
-				<td><a th:href="@{/movie-app/{id}(id=${movie.id})}" >View</a></td>
-			</tr>
-			
-		</th:block>	
+		<tr th:each="movie : ${movies}">
+			<td th:id="${movie.id}"></td>
+			<td th:text="${movie.title}"></td>
+			<td th:text="${movie.director}"></td>
+			<td th:text="${movie.year}"></td>
+			<td th:text="${movie.genre} ? ${movie.genre.name} : 'No genre yet'"></td>
+			<td><a th:href="@{/movie-app/{id}(id=${movie.id})}">View</a></td>
+		</tr>
+		</th:block>
 	</table>
-	<div>
-		<p>
-			<a href="/edit-page">EditPage (admin)</a>
-		</p>
+
+
+	<div sec:authorize="hasAuthority('ADMIN')">
+	<a href="/admin/edit-page" >Edit page</a>
 	</div>
+
 	<div>
-		<p>
-			<a href="/edit-genre">Edit genres</a>
-		</p>
+		<img th:src="@{/imgfolder/vittu.jpg}" height="400" />
 	</div>
+
+	<div th:switch=${#httpServletRequest.remoteUser}>
+		<div th:case="'admin'">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" />
+			</form>
+		</div>
+		<div th:case="'user'">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" />
+			</form>
+		</div>
+		<div th:case="*">
+			<form action="@{/login}">
+				<input type="submit" value="Sing In" />
+			</form>
+		</div>
+	</div>
+
+
+
+	<!-- <img th:src="@{${'/img/' + players.id +'_'+ players.name + '.png'}}" width="120"/> -->
+	<!-- th:src="@{/img/{id}_{name}.png(id=${players.id},name=${players.name})}" -->
+	<!-- <img th:src="${plant.image} ? ${plant.image} : @{/img/87152.jpg}" height="700" class="pricing-img"> -->
 </body>
 </html>

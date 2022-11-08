@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Review page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<div class="col-6">
+		<table class="table table-stripped" th:object="${movie}">
+			<th:block th:each="r : *{reviews}">
+				<tr>
+				<!-- ei toimi toi no reviews yeat -->
+					<td th:switch="${#lists.size(movie.reviews)}"><span
+						th:case="'0'">No reviews yet! </span></td>
+				</tr>
+				<tr>
+					<th>Reviews</th>
+					<th>Points</th>
+				</tr>
+				<tr>
+					<td th:text="${r.userReview}"></td>
+					<td th:text="${r.points}"></td>
+					<td>
+						<form th:action="@{/admin/delete-review}" method="post">
+							<input type="hidden" name="movieId" th:value="*{id}"> <input
+								type="hidden" name="reviewId" th:value="${r.id}">
+							<button sec:authorize ="hasAuthority('ADMIN')">Delete</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<th>Final score:</th>
+					<th>jokuhassu nro</th>
+				</tr>
+			</th:block>
+		</table>
+
+		<p>
+			<a th:href="@{/movie-app/add-review/{id}(id=${movie.id})}"
+				class="btn btn-success">Add review</a>
+		</p>
+		<p>
+			<a th:href="@{/movie-app/{id}(id=${movie.id})}">&larr; Back</a>
+		</p>
+
+
+	</div>
+
+
+</body>
+</html>

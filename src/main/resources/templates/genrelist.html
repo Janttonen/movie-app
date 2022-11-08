@@ -13,14 +13,14 @@
 		<table class="table">
 			<tr th:each="genre: ${genres}">
 				<td>
-					<form th:action="@{/save-genres}" method="post">
+					<form th:action="@{/admin/save-genres}" method="post">
 						<input type="hidden" name="genre.id" th:value="${genre.id}">
 						<input name="name" th:value="${genre.name}" aria-label="Genre">
 						<button>Save changes</button>
 					</form>
 				</td>
 				<td>
-					<form th:action="@{/delete-genres}" method="post">
+					<form th:action="@{/admin/delete-genres}" method="post">
 						<input type="hidden" name="genreId" th:value="${genre.id}">
 						<button>Delete genre</button>
 					</form>
@@ -28,16 +28,18 @@
 			</tr>
 			<tr>
 				<td>
-					<form th:object="${newGenre}" th:action="@{/save-genres}" action="#"
+					<form th:object="${newGenre}" th:action="@{/admin/save-genres}" action="#"
 						method="post" aria-label="New genre">
-						<input type="hidden" name="genre.id" th:value="${genre.id}">
-						<input name="name" th:value="*{name}" aria-label="Genre" autofocus>
+						<input id="name" name="name" th:value="*{name}" aria-label="Genre" autofocus>
 						<button>Add genre</button>
 						
 					</form>
 				</td>
 			</tr>
 		</table>
+		<p>
+		<a th:href="@{/admin/edit-page}">&larr; Done with the changes</a>
+	</p>
 	</div>
 
 

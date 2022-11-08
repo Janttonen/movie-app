@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta name="viewport" content="initial-scale=1">
 <title>MovieApp</title>
@@ -9,19 +10,19 @@
 	<h1>EditPage</h1>
 
 	<p>
-		<a href="/add-movie">(+) Add movie</a>
+		<a href="/admin/add-movie">(+) Add movie</a>
 	</p>
 
 	<table>
 		<tr th:each="movie : ${movies}">
 			<td th:id="${movie.id}"></td>
 			<td th:text="${movie.title}"></td>
-			<td><a th:href="@{/delete-movie/{id}(id=${movie.id})}">Delete</a></td>
-			<td><a th:href="@{/edit-movie/{id}(id=${movie.id})}">Edit</a></td>
+			<td><a th:href="@{/admin/delete-movie/{id}(id=${movie.id})}">Delete</a></td>
+			<td><a th:href="@{/admin/edit-movie/{id}(id=${movie.id})}">Edit</a></td>
 		</tr>
 	</table>
 		<p>
-			<a href="/genre-list">Edit genres</a>
+			<a href="/admin/edit-genres">Edit genres</a>
 		</p>
 		<p>
 		<a href="/movie-app">Back to the main page</a>

@@ -11,7 +11,7 @@
 
 	<h1>Edit movie</h1>
 	<div>
-		<form th:object="${movie}" th:action="@{../save}" action="#" method="post">
+		<form th:object="${movie}" th:action="@{/admin/save-movie}" action="#" method="post">
 		<input type="hidden" th:field="*{id}">
 				
 		  	<label for="title">Title</label>
@@ -45,7 +45,7 @@
 		<table class="table">
 		<tr th:each="actor: ${movie.actors}">
 		<td>
-				<form th:action="@{/save-actor}" method="post">
+				<form th:action="@{/admin/save-actor}" method="post">
 					<input type="hidden" name="movie.id" th:value="${movie.id}">
 					<input type="hidden" name="id" th:value="${actor.id}">
 					<input name="name" th:value="${actor.name}" aria-label="Actor">
@@ -53,7 +53,7 @@
 				</form>
 			</td>
 			<td>
-				<form th:action="@{/delete-actor}" method="post">
+				<form th:action="@{/admin/delete-actor}" method="post">
 					<input type="hidden" name="movieId" th:value="${movie.id}">
 					<input type="hidden" name="actorId" th:value="${actor.id}">
 					<button>Delete</button>
@@ -62,7 +62,7 @@
 			</tr>
 		<tr>
 			<td>
-				<form th:object="${newActor}" th:action="@{/save-actor}" method="post" aria-label="New actor">
+				<form th:object="${newActor}" th:action="@{/admin/save-actor}" method="post" aria-label="New actor">
 					<input type="hidden" name="movie.id" th:value="${movie.id}">
 					<input name="name" th:value="*{name}" aria-label="Actor" autofocus>
 					<button>Add</button>
@@ -72,7 +72,7 @@
 		</table>
 		</div>
 		<p>
-		<a th:href="|@{/edit-page}#${movie.id}|">&larr; Done with the changes</a>
+		<a th:href="|@{/admin/edit-page}#${movie.id}|">&larr; Done with the changes</a>
 	</p>
 	</div>
 	

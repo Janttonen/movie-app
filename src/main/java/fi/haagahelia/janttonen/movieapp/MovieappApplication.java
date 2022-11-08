@@ -15,6 +15,10 @@ import fi.haagahelia.janttonen.movieapp.domain.Genre;
 import fi.haagahelia.janttonen.movieapp.domain.GenreRepository;
 import fi.haagahelia.janttonen.movieapp.domain.Movie;
 import fi.haagahelia.janttonen.movieapp.domain.MovieRepository;
+import fi.haagahelia.janttonen.movieapp.domain.Review;
+import fi.haagahelia.janttonen.movieapp.domain.ReviewRepository;
+import fi.haagahelia.janttonen.movieapp.domain.User;
+import fi.haagahelia.janttonen.movieapp.domain.UserRepository;
 
 @SpringBootApplication
 public class MovieappApplication {
@@ -26,7 +30,7 @@ public class MovieappApplication {
 	}
 
 	@Bean
-	public CommandLineRunner addTestData(MovieRepository mrepo, ActorRepository arepo, GenreRepository grepo){
+	public CommandLineRunner addTestData(MovieRepository mrepo, ActorRepository arepo, GenreRepository grepo, ReviewRepository rrepo, UserRepository urepo){
 			return (args) -> {
 				
 				log.info("Create some genres");
@@ -51,6 +55,16 @@ public class MovieappApplication {
 				arepo.save(new Actor(m2, "Harrison Ford"));
 				arepo.save(new Actor(m1, "minna"));
 				
-			}; 
+				log.info("Save a few reviews");
+				rrepo.save(new Review(m1, "käyttäjänä koi tämän olevan liian vaikeaaa hyi", 3.5));
+				rrepo.save(new Review(m1, "miten näitäkin ajetaan", 2));
+				rrepo.save(new Review(m2, "jassoo", 5));
+				
+				log.info("Create some users");
+				User u1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "user@gmail.com", "USER");
+				User u2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "admin@gmail.com", "ADMIN");
+				urepo.save(u1);
+				urepo.save(u2);
+			};
 	}
 }

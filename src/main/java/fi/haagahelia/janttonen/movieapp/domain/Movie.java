@@ -48,6 +48,12 @@ public class Movie {
 	@JsonIgnoreProperties("movie")
 	private List<Actor> actors;
 	
+	// multiple reviews in one movies
+		@JsonIgnore
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
+		@JsonIgnoreProperties("movie")
+		private List<Review> reviews;
+	
 	//multiple images to one movie
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
@@ -127,6 +133,14 @@ public class Movie {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	@Override

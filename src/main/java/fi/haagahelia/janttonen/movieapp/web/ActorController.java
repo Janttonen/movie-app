@@ -15,16 +15,16 @@ public class ActorController {
 	private ActorRepository arepo;
 
 	// Save actor when done changes in edit mode
-	@PostMapping("/save-actor")
+	@PostMapping("/admin/save-actor")
 	public String saveActor(Actor actor) {
 		arepo.save(actor);
-		return "redirect:/edit-movie/" + actor.getMovie().getId();
+		return "redirect:/admin/edit-movie/" + actor.getMovie().getId();
 	}
 
 	// Handle the form for deleting an actor
-	@PostMapping("/delete-actor")
+	@PostMapping("/admin/delete-actor")
 	public String deleteActor(@RequestParam Long actorId, @RequestParam Long movieId) {
 		arepo.deleteById(actorId);
-		return "redirect:/edit-movie/" + movieId;
+		return "redirect:/admin/edit-movie/" + movieId;
 	}
 }

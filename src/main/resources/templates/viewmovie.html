@@ -21,15 +21,40 @@
 				<p th:text="*{director}"></p>
 
 				<!-- actors names -->
-				<th:block th:each="actor : ${movie.actors}">
+				<th:block th:each="actor : *{actors}">
 					<tr>
 						<th th:text="${actor.name}"></th>
 					</tr>
 				</th:block>
-
 				<p th:text="*{description}"></p>
 				<p th:text="*{year}"></p>
 				<p th:text="*{genre.name}"></p>
+			</div>
+
+			<!-- Show few reviews -->
+			<div class="col-6" th:object="${movie}">
+				<table>
+					<h2>Reviews</h2>
+					<th:block th:each="review : *{reviews}">
+						<tr>
+							<!-- ei toimi piilottaminen -->
+							<td th:switch="${#lists.size(movie.reviews)}"><span
+								th:case="'0'">No reviews yet! <br> <a
+									th:href="@{/add-review/{id}(id=${movie.id})}">Add review</a>
+							</span></td>
+						</tr>
+						<tr>
+							<td th:text="${review.userReview}"></td>
+							<td th:text="${review.points}"></td>
+						</tr>
+					</th:block>
+					<th:block>
+						<p>
+							<a th:href="@{/movie-app/all-reviews/{id}(id=${movie.id})}">View all
+								reviews</a>
+						</p>
+					</th:block>
+				</table>
 			</div>
 		</div>
 	</div>

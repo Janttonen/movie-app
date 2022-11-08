@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Movie App</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+
+</head>
+<body>
+	<h1>Add new review</h1>
+	<div>
+				<form th:object="${newReview}" th:action="@{/movie-app/save-review}" method="post" aria-label="New review" >
+					<input type="hidden" name="movie.id" th:value="*{movie.id}">
+					<input name="userReview" th:value="*{userReview}" aria-label="Review" autofocus>
+					<input name="points" th:value="*{points}" aria-label="Points" autofocus>
+					<div class="alert alert-warning" th:if="${#fields.hasErrors('points')}" th:errors="*{points}"></div>
+					<button class="btn btn-success">Add review</button>
+				</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div class="header">
+		<div th:switch=${#httpServletRequest.remoteUser}>
+			<div th:case="'admin'">
+				<p th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Sign Out" />
+				</form>
+			</div>
+			<div th:case="'user'">
+				<p th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Sign Out" />
+				</form>
+			</div>
+			<div th:case="*">
+				<form action="@{/login}">
+					<input type="submit" value="Sing In" />
+				</form>
+			</div>
+		</div>
+	</div>

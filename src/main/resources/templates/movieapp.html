@@ -7,10 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
+	<div th:replace="fragments/header"></div>
 	<h1>Movies</h1>
-
 	<table>
 		<tr th:each="movie : ${movies}">
 			<td th:id="${movie.id}"></td>
@@ -25,35 +23,17 @@
 
 
 	<div sec:authorize="hasAuthority('ADMIN')">
-	<a href="/admin/edit-page" >Edit page</a>
+		<a href="/admin/edit-page">Edit page</a>
+
 	</div>
 
 	<div>
 		<img th:src="@{/imgfolder/vittu.jpg}" height="400" />
 	</div>
 
-	<div th:switch=${#httpServletRequest.remoteUser}>
-		<div th:case="'admin'">
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" />
-			</form>
-		</div>
-		<div th:case="'user'">
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" />
-			</form>
-		</div>
-		<div th:case="*">
-			<form action="@{/login}">
-				<input type="submit" value="Sing In" />
-			</form>
-		</div>
-	</div>
-
-
-
 	<!-- <img th:src="@{${'/img/' + players.id +'_'+ players.name + '.png'}}" width="120"/> -->
 	<!-- th:src="@{/img/{id}_{name}.png(id=${players.id},name=${players.name})}" -->
 	<!-- <img th:src="${plant.image} ? ${plant.image} : @{/img/87152.jpg}" height="700" class="pricing-img"> -->
+	
 </body>
 </html>

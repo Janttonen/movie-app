@@ -7,7 +7,7 @@
 	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
+<div th:replace="fragments/header"></div>
 	<div class="col-6">
 		<table class="table table-stripped" th:object="${movie}">
 			<th:block th:each="r : *{reviews}">

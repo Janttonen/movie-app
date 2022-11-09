@@ -22,8 +22,17 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/css/**", "/", "/movie-app/**").permitAll().antMatchers("/admin/**")
-				.hasRole("ADMIN").anyRequest().authenticated().and().formLogin()//.loginPage("/login")
+		http
+		.authorizeRequests()
+		.antMatchers("/css/**", "/", "/movie-app/**")
+		.permitAll()
+		.antMatchers("/imgfolder/**").permitAll()
+		.antMatchers("/admin/**")
+				.hasAuthority("ADMIN")
+				.anyRequest()
+				.authenticated()
+				.and()
+				.formLogin()//.loginPage("/login")
 				.defaultSuccessUrl("/movie-app", true).permitAll().and().logout().logoutSuccessUrl("/movie-app").permitAll().and().httpBasic();
 		return http.build();
 	}

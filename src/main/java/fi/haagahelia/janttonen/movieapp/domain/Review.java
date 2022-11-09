@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,9 +28,10 @@ public class Review {
 	@JoinColumn(name = "movieId")
 	private Movie movie;
 
+	@NotBlank
 	private String userReview;
 	
-	
+	@NotNull
 	@Min(value=0, message="must be equal or greater than 0")  
     @Max(value=5, message="must be equal or less than 5")  
 	private double points;

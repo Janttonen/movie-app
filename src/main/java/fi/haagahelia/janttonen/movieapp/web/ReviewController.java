@@ -62,7 +62,7 @@ public class ReviewController {
 	@PostMapping("/movie-app/save-review")
 	public String saveReview(@Valid Review review, BindingResult result) {
 		if (result.hasErrors()) {
-            return "/movie-app/all-reviews/" + review.getMovie().getId();
+            return "redirect:/movie-app/all-reviews/" + review.getMovie().getId();
         }
         else {
         	rrepo.save(review);

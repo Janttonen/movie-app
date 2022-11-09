@@ -13,8 +13,15 @@
 			<th:block th:each="r : *{reviews}">
 				<tr>
 				<!-- ei toimi toi no reviews yeat -->
-					<td th:switch="${#lists.size(movie.reviews)}"><span
-						th:case="'0'">No reviews yet! </span></td>
+					<td th:switch="${#lists.size(movie.reviews)}">
+					<span
+						th:case="'0'">
+						No reviews yet!
+						
+			<a th:href="@{/movie-app/add-review/{id}(id=${movie.id})}"
+				class="btn btn-success">Add review</a>
+		</span>
+						</td>
 				</tr>
 				<tr>
 					<th>Reviews</th>
@@ -33,7 +40,7 @@
 				</tr>
 				<tr>
 					<th>Final score:</th>
-					<th>jokuhassu nro</th>
+					<th th:text="${avgPoints}"></th>
 				</tr>
 			</th:block>
 		</table>

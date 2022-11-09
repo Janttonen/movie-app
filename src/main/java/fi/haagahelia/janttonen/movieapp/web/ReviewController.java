@@ -1,5 +1,7 @@
 package fi.haagahelia.janttonen.movieapp.web;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,7 @@ public class ReviewController {
 
 		model.addAttribute("movie", movie);
 		model.addAttribute("reviews", rrepo.findAll());
+		model.addAttribute("avgPoints", rrepo.avgPoints());
 		return "reviewpage";
 	}
 
@@ -62,7 +65,7 @@ public class ReviewController {
 	@PostMapping("/movie-app/save-review")
 	public String saveReview(@Valid Review review, BindingResult result) {
 		if (result.hasErrors()) {
-            return "redirect:/movie-app/all-reviews/" + review.getMovie().getId();
+            return "redirect:/movie-app/add-review/" + review.getMovie().getId() + "?error";
         }
         else {
         	rrepo.save(review);
@@ -75,6 +78,6 @@ public class ReviewController {
 	@PostMapping("/admin/delete-review")
 	public String deleteReview(@RequestParam Long reviewId, @RequestParam Long movieId) {
 		rrepo.deleteById(reviewId);
-		return "redirect:/all-reviews/" + movieId;
+		return "redirect:/movie-app/all-reviews/" + movieId;
 	}
 }

@@ -1,10 +1,13 @@
 package fi.haagahelia.janttonen.movieapp.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,10 +73,14 @@ public class MovieController {
 
 	// saving the new movie (with genre)
 	@PostMapping("/admin/save-new-movie")
-	public String saveMovie(Movie movie) {
+	public String saveMovie(@Valid Movie movie, BindingResult result) {
+		if (result.hasErrors()) {
+	        return "redirect:/admin/add-movie/?errorNM";
+	    } else {
 		mrepo.save(movie);
 		return "redirect:/admin/edit-movie/" + movie.getId();
-	}
+	}}
+	
 
 	// editing movie
 	// adding some actors
@@ -91,10 +98,13 @@ public class MovieController {
 
 	// saving changes
 	@PostMapping("/admin/save-movie")
-	public String saveChanges(Movie movie) {
+	public String saveChanges(@Valid Movie movie, BindingResult result) {
+		if (result.hasErrors()) {
+        return "redirect:/admin/edit-movie/" + movie.getId() + "?errorM";
+    } else {
 		mrepo.save(movie);
 		return "redirect:/admin/edit-movie/" + movie.getId();
-	}
+	}}
 	
 	//delete movie (admin)
 	@GetMapping("/admin/delete-movie/{id}")

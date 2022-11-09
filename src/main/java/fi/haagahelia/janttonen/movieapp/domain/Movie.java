@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,11 +30,15 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "movieId")
 	private Long id;
-
+	
+	@NotBlank
 	private String title;
+	@NotBlank
 	private String director;
+	@NotBlank
 	private String description;
 
+	@NotNull
 	@Column(name = "publishing_year")
 	private int year;
 

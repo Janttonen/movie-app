@@ -38,6 +38,7 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<input type="submit" value="Add changes"></input>
+			<div th:if="${param.errorM}">Something went wrong, please try againg</div>
 		</form>
 		
 		<div>
@@ -66,6 +67,7 @@
 					<input type="hidden" name="movie.id" th:value="${movie.id}">
 					<input name="name" th:value="*{name}" aria-label="Actor" autofocus>
 					<button>Add</button>
+					<div th:if="${param.errorA}">Please try againg</div>
 				</form>
 			</td>
 		</tr>

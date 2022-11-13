@@ -25,9 +25,11 @@ public class WebSecurityConfig {
 	
 		http
 		.authorizeRequests()
-		.antMatchers("/css/**", "/", "/movie-app/**").permitAll()
+		.antMatchers("/", "/movie-app/**").permitAll()
+		.antMatchers("/cssfolder/**").permitAll()
 		.antMatchers("/imgfolder/**").permitAll()
 		 .antMatchers("/h2-console/**").permitAll()
+		 .antMatchers("/api/**").permitAll()
 		.antMatchers("/admin/**")
 				.hasAuthority("ADMIN")
 				.anyRequest()

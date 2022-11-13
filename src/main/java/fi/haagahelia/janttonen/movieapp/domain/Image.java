@@ -21,12 +21,12 @@ public class Image {
 	
 	//multiple images to one movie
 	@ManyToOne
-	@JsonIgnoreProperties("images")
+	@JsonIgnoreProperties("imageUrls")
 	@JoinColumn(name = "movieId")
 	private Movie movie;
 	
 	
-	private String image;
+	private String imageUrl;
 	private String imgSource;
 
 	public Image() {
@@ -37,10 +37,10 @@ public class Image {
 	}
 	
 	
-	public Image(Movie movie, String image, String imgSource) {
+	public Image(Movie movie, String imageUrl, String imgSource) {
 		super();
 		this.movie = movie;
-		this.image = image;
+		this.imageUrl = imageUrl;
 		this.imgSource = imgSource;
 	}
 	
@@ -52,12 +52,12 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getImage() {
-		return image;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getImgSource() {
@@ -79,6 +79,6 @@ public class Image {
 
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", image=" + image + ", imgSource=" + imgSource + "]";
+		return "Image [id=" + id + ", imageUrl=" + imageUrl + ", imgSource=" + imgSource + "]";
 	}
 }

@@ -29,6 +29,7 @@ public class Review {
 	private Movie movie;
 
 	@NotBlank
+	@Column(name="userReview",columnDefinition="LONGTEXT")
 	private String userReview;
 	
 	@NotNull

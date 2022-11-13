@@ -2,38 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<meta name="viewport" content="initial-scale=1">
 <title>Movie App</title>
+<meta name="viewport" content="initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link th:href="@{/cssfolder/main.css}" rel="stylesheet" />
 </head>
+
 <body>
 	<div th:replace="fragments/header"></div>
-	<h1>Movies</h1>
-	<table>
-		<tr th:each="movie : ${movies}">
-			<td th:id="${movie.id}"></td>
-			<td th:text="${movie.title}"></td>
-			<td th:text="${movie.director}"></td>
-			<td th:text="${movie.year}"></td>
-			<td th:text="${movie.genre} ? ${movie.genre.name} : 'No genre yet'"></td>
-			<td><a th:href="@{/movie-app/{id}(id=${movie.id})}">View</a></td>
-		</tr>
-		</th:block>
-	</table>
 
-
-	<div sec:authorize="hasAuthority('ADMIN')">
-		<a href="/admin/edit-page">Edit page</a>
-
+	<div class="page-content py-5 bg-light">
+		<div class="container">
+			<div class="row d-flex justify-content-between">
+				<div class="col-md-4" th:each="movie : ${movies}">
+					<div class="card mb-4 shadow-sm">
+						<div class="card-body">
+							<dl>
+								<dt th:id="${movie.id}">
+								<dd th:text="${movie.title}"></dd>
+								<dd th:text="${movie.director}"></dd>
+								<dd th:text="${movie.year}"></dd>
+								<th:block th:each="url, iterStat: ${movie.imageUrls}"
+									th:if="${iterStat.index} <1">
+									<img
+										th:src="${url.imageUrl} ? ${url.imageUrl} : @{/imfolder/errorpic.jpg}"
+										height="400" />
+								</th:block>
+							</dl>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<p><a th:href="@{/movie-app/{id}(id=${movie.id})}" type="button"
+										class="btn btn-sm btn-outline-secondary">View</a> </p>
+										<p sec:authorize="hasAuthority('ADMIN')"><a
+										th:href="@{/admin/edit-movie/{id}(id=${movie.id})}"
+										type="button" class="btn btn-sm btn-outline-secondary">Edit</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div>
-		<img th:src="@{/imgfolder/vittu.jpg}" height="400" />
-	</div>
-
-	<!-- <img th:src="@{${'/img/' + players.id +'_'+ players.name + '.png'}}" width="120"/> -->
-	<!-- th:src="@{/img/{id}_{name}.png(id=${players.id},name=${players.name})}" -->
-	<!-- <img th:src="${plant.image} ? ${plant.image} : @{/img/87152.jpg}" height="700" class="pricing-img"> -->
-	
 </body>
 </html>

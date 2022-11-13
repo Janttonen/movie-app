@@ -34,6 +34,7 @@ public class ReviewController {
 	private MovieRepository mrepo;
 
 	// show all reviews from a certain movie
+	// show average points from a certain movie
 	@GetMapping("/movie-app/all-reviews/{id}")
 	public String listAllReviews(@PathVariable("id") Long movieId, Model model) {
 		Movie movie = mrepo.findById(movieId).orElse(null);
@@ -43,7 +44,7 @@ public class ReviewController {
 
 		model.addAttribute("movie", movie);
 		model.addAttribute("reviews", rrepo.findAll());
-		model.addAttribute("avgPoints", rrepo.avgPoints());
+		model.addAttribute("avgPoints", rrepo.avgPoints(movieId));
 		return "reviewpage";
 	}
 
@@ -55,7 +56,6 @@ public class ReviewController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 
-		
 		model.addAttribute("movie", movie);
 		model.addAttribute("newReview", new Review(movie));
 		return "addreview";
@@ -65,16 +65,15 @@ public class ReviewController {
 	@PostMapping("/movie-app/save-review")
 	public String saveReview(@Valid Review review, BindingResult result) {
 		if (result.hasErrors()) {
-            return "redirect:/movie-app/add-review/" + review.getMovie().getId() + "?error";
-        }
-        else {
-        	rrepo.save(review);
-            return "redirect:/movie-app/all-reviews/" + review.getMovie().getId();
-        }
+			return "redirect:/movie-app/add-review/" + review.getMovie().getId() + "?error";
+		} else {
+			rrepo.save(review);
+			return "redirect:/movie-app/all-reviews/" + review.getMovie().getId();
+		}
 	}
 
 	// Handle the form for deleting a review
-	//Only admin can delete reviews
+	// Only admin can delete reviews
 	@PostMapping("/admin/delete-review")
 	public String deleteReview(@RequestParam Long reviewId, @RequestParam Long movieId) {
 		rrepo.deleteById(reviewId);

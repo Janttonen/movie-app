@@ -75,12 +75,12 @@ public class MovieController {
 	@PostMapping("/admin/save-new-movie")
 	public String saveMovie(@Valid Movie movie, BindingResult result) {
 		if (result.hasErrors()) {
-	        return "redirect:/admin/add-movie/?errorNM";
-	    } else {
-		mrepo.save(movie);
-		return "redirect:/admin/edit-movie/" + movie.getId();
-	}}
-	
+			return "redirect:/admin/add-movie/?errorNM";
+		} else {
+			mrepo.save(movie);
+			return "redirect:/admin/edit-movie/" + movie.getId();
+		}
+	}
 
 	// editing movie
 	// adding some actors
@@ -100,17 +100,18 @@ public class MovieController {
 	@PostMapping("/admin/save-movie")
 	public String saveChanges(@Valid Movie movie, BindingResult result) {
 		if (result.hasErrors()) {
-        return "redirect:/admin/edit-movie/" + movie.getId() + "?errorM";
-    } else {
-		mrepo.save(movie);
-		return "redirect:/admin/edit-movie/" + movie.getId();
-	}}
-	
-	//delete movie (admin)
+			return "redirect:/admin/edit-movie/" + movie.getId() + "?errorM";
+		} else {
+			mrepo.save(movie);
+			return "redirect:/admin/edit-movie/" + movie.getId();
+		}
+	}
+
+	// delete movie (admin)
 	@GetMapping("/admin/delete-movie/{id}")
-	    public String deleteMovie(@PathVariable("id") Long movieId) {
-	    	mrepo.deleteById(movieId);
-	        return "redirect:/admin/edit-page";
-	    }  
+	public String deleteMovie(@PathVariable("id") Long movieId) {
+		mrepo.deleteById(movieId);
+		return "redirect:/admin/edit-page";
+	}
 
 }

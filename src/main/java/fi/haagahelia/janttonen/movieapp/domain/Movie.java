@@ -30,12 +30,13 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "movieId")
 	private Long id;
-	
+
 	@NotBlank
 	private String title;
 	@NotBlank
 	private String director;
 	@NotBlank
+	@Column(name="description",columnDefinition="LONGTEXT")
 	private String description;
 
 	@NotNull
@@ -53,21 +54,21 @@ public class Movie {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
 	@JsonIgnoreProperties("movie")
 	private List<Actor> actors;
-	
+
 	// multiple reviews in one movies
-		@JsonIgnore
-		@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
-		@JsonIgnoreProperties("movie")
-		private List<Review> reviews;
-	
-	//multiple images to one movie
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
-	private List<Image> images;
-	
+	@JsonIgnoreProperties("movie")
+	private List<Review> reviews;
+
+	// multiple images to one movie
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
+	private List<Image> imageUrls;
+
 	public Movie() {
 	}
-	
+
 	public Movie(String title, String director, String description, int year, Genre genre) {
 		super();
 		this.title = title;
@@ -133,14 +134,14 @@ public class Movie {
 		this.actors = actors;
 	}
 
-	public List<Image> getImages() {
-		return images;
+	public List<Image> getImageUrls() {
+		return imageUrls;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
+	public void setImageUrls(List<Image> imageUrls) {
+		this.imageUrls = imageUrls;
 	}
-	
+
 	public List<Review> getReviews() {
 		return reviews;
 	}
@@ -152,31 +153,33 @@ public class Movie {
 	@Override
 	public String toString() {
 		if (this.genre != null) {
-			return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description="
-							+ description + ", year=" + year + ", genre=" + this.getGenre() + "]";
-		}else {
-		return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description=" + description
-				+ ", year=" + year + "]";
-	}
+			return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description=" + description
+					+ ", year=" + year + ", genre=" + this.getGenre() + "]";
+		} else {
+			return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description=" + description
+					+ ", year=" + year + "]";
+		}
 	}
 
-	
-	
-	//@Override
-	//public String toString() {
-	//	if (this.genre != null) {
-	//		if (this.actors != null) {
-	//			return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description="
-		//				+ description + ", year=" + year + ", genre=" + this.getGenre() + ", m_actors="
-			//			+ this.getActors() + "]";
-	//		} else {
-		//		return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description="
-			//			+ description + ", year=" + year + ", genre=" + this.getGenre() + "]";
-	//		}
-		//} else {
-	//		return "Movie [id=" + id + ", title=" + title + ", director=" + director + ", description=" + description
-	//				+ ", year=" + year + ", genre=" + "]";
-	//	}
-	//}
+	// @Override
+	// public String toString() {
+	// if (this.genre != null) {
+	// if (this.actors != null) {
+	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
+	// description="
+	// + description + ", year=" + year + ", genre=" + this.getGenre() + ",
+	// m_actors="
+	// + this.getActors() + "]";
+	// } else {
+	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
+	// description="
+	// + description + ", year=" + year + ", genre=" + this.getGenre() + "]";
+	// }
+	// } else {
+	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
+	// description=" + description
+	// + ", year=" + year + ", genre=" + "]";
+	// }
+	// }
 
 }

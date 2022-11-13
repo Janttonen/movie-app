@@ -1,64 +1,100 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>MovieApp</title>
+<title>Movie App</title>
+<meta name="viewport" content="initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
-	th:href="@{/css/bootstrap.min.css}" />
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link th:href="@{/cssfolder/main.css}" rel="stylesheet" />
 </head>
+
 <body>
 	<div th:replace="fragments/header"></div>
-
-	<div class="page-contents">
-		<div class="back-navigation">
-			<a th:href="@{/movie-app}">Back</a>
-		</div>
+	<div class="page-content">
 
 		<!-- show one selected movie -->
-		<div class="row">
-			<div class="col-6" th:object="${movie}">
-				<h1 th:text="*{title}"></h1>
-				<p th:text="*{director}"></p>
 
-				<!-- actors names -->
-				<th:block th:each="actor : *{actors}">
-					<tr>
-						<th th:text="${actor.name}"></th>
-					</tr>
-				</th:block>
-				<p th:text="*{description}"></p>
-				<p th:text="*{year}"></p>
-				<p th:text="*{genre.name}"></p>
+		<div th:object="${movie}">
+			<div class="container">
+				<h1 class="text-center" th:text="*{title}"></h1>
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-4" th:each="u : ${movie.imageUrls}">
+						<img th:src="${u.imageUrl}" height="450" th:alt="${u.imgSource}" />
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col col-lg-7">
+						<dl>
+							<dt>Description:</dt>
+							<dd th:text="*{description}"></dd>
+						</dl>
+					</div>
+					<div class="col col-lg-4">
+						<dl>
+							<dt>Director:</dt>
+							<dd th:text="*{director}"></dd>
+
+							<!-- actors names -->
+							<dt>Actors:</dt>
+							<th:block th:each="actor : *{actors}">
+								<td th:text="${actor.name}"></td>
+							</th:block>
+							<dt>Year:</dt>
+							<dd th:text="*{year}"></dd>
+							<dt>Genre:</dt>
+							<dd th:text="*{genre.name}"></dd>
+						</dl>
+					</div>
+				</div>
 			</div>
 
-			<!-- Show few reviews -->
-			<div class="col-6" th:object="${movie}">
-				<table>
-					<h2>Reviews</h2>
-
-					<th:block th:switch="${#lists.size(movie.reviews)}">
-						<th:block th:each="review : *{reviews}">
-							<tr th:case="'0'">
-								<td>No reviews yet! <br> <a
-									th:href="@{/add-review/{id}(id=${movie.id})}">Add review</a>
-								</td>
-							</tr>
-							<tr th:case="*">
-							<tr>
-								<td th:text="${review.userReview}"></td>
-								<td th:text="${review.points}"></td>
-							</tr>
-
-						</th:block>
-						<p>
-							<a th:href="@{/movie-app/all-reviews/{id}(id=${movie.id})}">View
-								all reviews</a>
-						</p>
-					</th:block>
-				</table>
+			<!-- Show only 3 reviews -->
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col col-lg-11">
+						<h4>Reviews</h4>
+						<table class="table table-striped">
+							<tbody>
+								<th:block th:each="review, iterStat: ${movie.reviews}"
+									th:if="${iterStat.index} <3">
+									<tr>
+										<td th:text="${review.userReview}"></td>
+										<td th:text="${review.points}"></td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+						 
+						<div th:switch="${#httpServletRequest.remoteUser}">
+							<span th:case="admin"> <a class="btn btn-outline-dark"
+								th:href="@{/admin/edit-page}" role="button">&larr; Edit Page</a>
+							</span> <span th:case="*"><a class="btn btn-outline-dark"
+								th:href="@{/movie-app/}" role="button">&larr;
+									Back</a> </span> 
+									
+									
+									<span th:if="${#lists.isEmpty(movie.reviews)}">No reviews
+							yet <br> <a class="btn btn-dark"
+							th:href="@{/movie-app/add-review/{id}(id=${movie.id})}"
+							role="button">Add review</a>
+						</span> <span th:unless="${#lists.isEmpty(movie.reviews)}"> <a
+							class="btn btn-dark"
+							th:href="@{/movie-app/all-reviews/{id}(id=${movie.id})}"
+							role="button">View all reviews</a>
+						</span>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

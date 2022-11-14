@@ -1,22 +1,16 @@
 package fi.haagahelia.janttonen.movieapp.domain;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -36,7 +30,7 @@ public class Movie {
 	@NotBlank
 	private String director;
 	@NotBlank
-	@Column(name="description",columnDefinition="LONGTEXT")
+	@Column(name = "description", columnDefinition = "LONGTEXT")
 	private String description;
 
 	@NotNull
@@ -160,26 +154,5 @@ public class Movie {
 					+ ", year=" + year + "]";
 		}
 	}
-
-	// @Override
-	// public String toString() {
-	// if (this.genre != null) {
-	// if (this.actors != null) {
-	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
-	// description="
-	// + description + ", year=" + year + ", genre=" + this.getGenre() + ",
-	// m_actors="
-	// + this.getActors() + "]";
-	// } else {
-	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
-	// description="
-	// + description + ", year=" + year + ", genre=" + this.getGenre() + "]";
-	// }
-	// } else {
-	// return "Movie [id=" + id + ", title=" + title + ", director=" + director + ",
-	// description=" + description
-	// + ", year=" + year + ", genre=" + "]";
-	// }
-	// }
 
 }

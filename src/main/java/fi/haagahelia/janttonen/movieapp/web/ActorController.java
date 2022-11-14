@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import fi.haagahelia.janttonen.movieapp.domain.Actor;
@@ -23,9 +22,10 @@ public class ActorController {
 		if (result.hasErrors()) {
 			return "redirect:/admin/edit-movie/" + actor.getMovie().getId() + "?errorA";
 		} else {
-		arepo.save(actor);
-		return "redirect:/admin/edit-movie/" + actor.getMovie().getId();
-	}}
+			arepo.save(actor);
+			return "redirect:/admin/edit-movie/" + actor.getMovie().getId();
+		}
+	}
 
 	// Handle the form for deleting an actor
 	@PostMapping("/admin/delete-actor")

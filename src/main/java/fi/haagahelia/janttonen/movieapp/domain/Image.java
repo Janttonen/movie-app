@@ -8,42 +8,39 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Image {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="imageId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "imageId")
 	private Long id;
-	
-	//multiple images to one movie
+
+	// multiple images to one movie
 	@ManyToOne
 	@JsonIgnoreProperties("imageUrls")
 	@JoinColumn(name = "movieId")
 	private Movie movie;
-	
-	
+
 	private String imageUrl;
 	private String imgSource;
 
 	public Image() {
 	}
-	
+
 	public Image(Movie movie) {
 		this.movie = movie;
 	}
-	
-	
+
 	public Image(Movie movie, String imageUrl, String imgSource) {
 		super();
 		this.movie = movie;
 		this.imageUrl = imageUrl;
 		this.imgSource = imgSource;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -76,9 +73,13 @@ public class Image {
 		this.movie = movie;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", imageUrl=" + imageUrl + ", imgSource=" + imgSource + "]";
+		if (this.movie != null) {
+			return "Image [id=" + id + ", imageUrl=" + imageUrl + ", imgSource=" + imgSource + ", movie="
+					+ this.getMovie() + "]";
+		} else {
+			return "Image [id=" + id + ", imageUrl=" + imageUrl + ", imgSource=" + imgSource + "]";
+		}
 	}
 }

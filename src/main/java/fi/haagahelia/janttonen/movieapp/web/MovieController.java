@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +17,6 @@ import fi.haagahelia.janttonen.movieapp.domain.Actor;
 import fi.haagahelia.janttonen.movieapp.domain.GenreRepository;
 import fi.haagahelia.janttonen.movieapp.domain.Movie;
 import fi.haagahelia.janttonen.movieapp.domain.MovieRepository;
-import fi.haagahelia.janttonen.movieapp.domain.Review;
-import fi.haagahelia.janttonen.movieapp.domain.ReviewRepository;
 
 @CrossOrigin
 @Controller

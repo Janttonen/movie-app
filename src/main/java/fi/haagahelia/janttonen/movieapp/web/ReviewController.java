@@ -1,7 +1,5 @@
 package fi.haagahelia.janttonen.movieapp.web;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.haagahelia.janttonen.movieapp.domain.Actor;
 import fi.haagahelia.janttonen.movieapp.domain.Movie;
 import fi.haagahelia.janttonen.movieapp.domain.MovieRepository;
 import fi.haagahelia.janttonen.movieapp.domain.Review;
@@ -45,6 +39,8 @@ public class ReviewController {
 		model.addAttribute("movie", movie);
 		model.addAttribute("reviews", rrepo.findAll());
 		model.addAttribute("avgPoints", rrepo.avgPoints(movieId));
+		model.addAttribute("numberOfReviews", rrepo.numberOfReviews(movieId));
+
 		return "reviewpage";
 	}
 

@@ -1,27 +1,16 @@
 package fi.haagahelia.janttonen.movieapp.domain;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
 
 @Entity
 @Table(name = "actors")
@@ -37,16 +26,16 @@ public class Actor {
 	@JsonIgnoreProperties("actors")
 	@JoinColumn(name = "movieId")
 	private Movie movie;
-	
+
 	@NotBlank
 	private String name;
 
 	public Actor() {
 	}
-	
+
 	public Actor(Movie movie) {
 	}
-	
+
 	public Actor(Movie movie, String name) {
 		super();
 		this.movie = movie;
@@ -68,7 +57,7 @@ public class Actor {
 	public void setMovie(Movie movie) {
 		this.movie = movie;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -85,5 +74,4 @@ public class Actor {
 			return "Actor [id=" + id + ", name=" + name + "]";
 		}
 	}
-
 }

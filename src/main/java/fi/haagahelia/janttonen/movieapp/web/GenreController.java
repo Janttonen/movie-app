@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,8 +15,8 @@ public class GenreController {
 
 	@Autowired
 	private GenreRepository grepo;
-	
-	//genrelist shown only to an admin
+
+	// genrelist shown only to an admin
 	// show a list of existing genres and add more
 	@GetMapping("/admin/edit-genres")
 	public String addAndShowGenre(Model model) {

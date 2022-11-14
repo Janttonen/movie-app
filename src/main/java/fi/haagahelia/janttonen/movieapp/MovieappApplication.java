@@ -73,6 +73,9 @@ public class MovieappApplication {
 
 			log.info("Save a few reviews");
 			rrepo.save(new Review(m1,
+					"Very good movie! Loved it!",
+					3.5));
+			rrepo.save(new Review(m1,
 					"m1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lectus arcu, aliquet et eros in, semper accumsan lectus. Maecenas gravida, libero nec facilisis laoreet, ex nunc elementum orci, eget accumsan tellus ex quis sem. Cras facilisis ultricies arcu, at porttitor nibh blandit interdum. Praesent id venenatis sapien. Quisque commodo sed ex id vestibulum. Curabitur nec condimentum metus, vel ultricies erat. Vestibulum ultricies pharetra lorem in tempor. Aliquam pharetra faucibus vehicula. Nunc ac tincidunt augue. Etiam est arcu, auctor nec tincidunt at, aliquet non arcu. Sed nec scelerisque lacus. Praesent pretium urna at fringilla suscipit. Cras pretium, nisl at iaculis pellentesque, nulla mi tincidunt nibh, nec vulputate magna risus eget elit. Praesent ullamcorper turpis finibus, sodales risus eget, elementum elit.",
 					3.5));
 			rrepo.save(new Review(m1,

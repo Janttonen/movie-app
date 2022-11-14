@@ -25,14 +25,14 @@ public class MovieRepositoryTest {
 	@Test
 	public void findAllByOrderByIdAsc() {
 		Iterable<Movie> movies = mrepo.findAllByOrderByIdAsc();
-		assertThat(movies).hasSize(3);
+		assertThat(movies).hasSize(4);
 		assertThat(movies.iterator().next().getTitle()).isEqualTo("Dune");
 	}
 
 	//find director
 	@Test 
     public void findByTitleShouldReturnDirector() {
-		List<Movie> movie = mrepo.findByTitle("Star Wars");
+		List<Movie> movie = mrepo.findByTitle("Star Wars: Episode IV - A New Hope");
         
         assertThat(movie).hasSize(1);
         assertThat(movie.get(0).getDirector()).isEqualTo("George Lucas");
@@ -48,10 +48,10 @@ public class MovieRepositoryTest {
 	}
 	
 	//delete movie byId(3)
-	//if a list has 3 movie
+	//if a list has 4 movie
 	@Test
     public void deleteMovieById() {
         mrepo.deleteById((long) 3);
-        assertThat(mrepo.count()).isEqualTo(2);
+        assertThat(mrepo.count()).isEqualTo(3);
     }
 }

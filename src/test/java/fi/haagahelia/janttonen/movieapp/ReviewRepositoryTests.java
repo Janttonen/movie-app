@@ -24,17 +24,17 @@ public class ReviewRepositoryTests {
 	@Test
 	public void findAllReviews() {
 		Iterable<Review> reviews = rrepo.findAll();
-		assertThat(reviews).hasSize(3);
-		assertThat(reviews.iterator().next().getUserReview()).isEqualTo("käyttäjänä koi tämän olevan liian vaikeaaa hyi");
+		assertThat(reviews).hasSize(10);
+		assertThat(reviews.iterator().next().getUserReview()).isEqualTo("Very good movie! Loved it!");
 	}
 	
 	//find all review from certain movie
 	//search from the second movie
 	@Test
 	public void findReviewsByMovieId(){
-	List<Review> reviews = rrepo.findReviewsByMovieId((long) 2);
-	assertThat(reviews).hasSize(1);
-	assertThat(reviews.iterator().next().getUserReview()).isEqualTo("jassoo");
+	List<Review> reviews = rrepo.findReviewsByMovieId((long) 1);
+	assertThat(reviews).hasSize(3);
+	assertThat(reviews.iterator().next().getUserReview()).isEqualTo("Very good movie! Loved it!");
 	}
 	
 	//save a new review
@@ -48,7 +48,7 @@ public class ReviewRepositoryTests {
 	@Test
     public void deleteReviewById() {
         rrepo.deleteById((long) 1);
-        assertThat(rrepo.count()).isEqualTo(2);
+        assertThat(rrepo.count()).isEqualTo(9);
     }
 	
 }

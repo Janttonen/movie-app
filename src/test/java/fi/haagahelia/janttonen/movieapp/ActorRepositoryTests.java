@@ -25,7 +25,7 @@ public class ActorRepositoryTests {
 	@Test
 	public void findAllByName() {
 		Iterable<Actor> actors = arepo.findAll();
-		assertThat(actors).hasSize(4);
+		assertThat(actors).hasSize(10);
 		assertThat(actors.iterator().next().getName()).isEqualTo("Timothée Chalamet");
 	}
 	
@@ -34,7 +34,7 @@ public class ActorRepositoryTests {
 	@Test
 	public void findActorsByMovieId(){
 	List<Actor> actors = arepo.findActorsByMovieId((long) 1);
-	assertThat(actors).hasSize(2);
+	assertThat(actors).hasSize(4);
 	assertThat(actors.iterator().next().getName()).isEqualTo("Timothée Chalamet");
 	}
 	
@@ -49,7 +49,7 @@ public class ActorRepositoryTests {
 	@Test
     public void deleteActorById() {
         arepo.deleteById((long) 1);
-        assertThat(arepo.count()).isEqualTo(3);
+        assertThat(arepo.count()).isEqualTo(9);
     }
 	
 }
